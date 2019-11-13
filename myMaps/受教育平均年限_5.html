@@ -6,7 +6,7 @@
         <script type="text/javascript" src="js/echarts.js"></script>
         <script type="text/javascript" src="js/maps/china.js"></script>
         <script type="text/javascript" src="js/maps/china_provinces/china_provinces.js"></script>
-        <script type="text/javascript" src="js/data/test.js"></script>
+        <script type="text/javascript" src="js/data/受教育平均年限_5.js"></script>
 
 </head>
 <body>
@@ -90,12 +90,12 @@ var option = {
 
         },
         title: {
-            text: 'Distribution of Education',
+            text: 'Distribution of Education (5 years)',
             textStyle: {
                 fontSize: 25,
                 color: 'rgb(0,0,0)',
             },
-            subtext: '受教育年限',
+            subtext: '受教育年限_5年',
             subtextStyle: {
                 fontSize: 12,
                 color: 'rgb(0,0,0)',
@@ -170,8 +170,9 @@ var option = {
                 itemStyle: {//顶层地图的样式，如地图区域颜色，边框颜色，边框大小等
                     normal: {
                         areaColor: 'rgba(54,252,255,0)',
-                        borderColor: 'rgba(0,255,1,0)',
-                        borderWidth: 0,
+                        borderColor: 'rgb(145,145,145)',
+                        // borderColor: '#ffffff',
+                        borderWidth: 0.1,
                         // opacity:0.4,
                     },
                     emphasis: {
@@ -258,7 +259,7 @@ for (var i = 0; i < data.length; i++) {
             // splitNumber:4,
             // text: ['High', 'Low'],
             textStyle: {
-                color: '#ddd'
+                color: '#000000'
             },    // NavyBlue
             color: [
                 '#8B0000',
