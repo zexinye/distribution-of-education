@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>myChart</title>
+        <script type="text/javascript" src="js/echarts.js"></script>
+        <script type="text/javascript" src="js/maps/china.js"></script>
+        <script type="text/javascript" src="js/maps/china_provinces/china_provinces.js"></script>
+        <script type="text/javascript" src="js/data/test.js"></script>
+
+</head>
+<body>
+    <div id="myChart"></div>
+
+
+
+
+<script>
+var container = document.getElementById('myChart');
+//自适应窗口大小
+container.style.width = window.innerWidth*0.95+'px';
+container.style.height = window.innerHeight*0.95+'px';
+
+var chart_myChart = echarts.init(
+document.getElementById('myChart'), 'white', {renderer: 'canvas'});
+
+
+var year_list = [];
+for (var i = 0; i < data.length; i++) {
+
+    year_list.push(data[i].time);
+}
+console.log(year_list);
+
+
+
+
+var option = {
+    baseOption: {
+        animationDurationUpdate: 1000,
+        animationEasingUpdate: 'quinticInOut',
+
+        timeline: {
+            currentIndex: 0,
+            axisType: 'category',
+            orient: 'vertical',
+            autoPlay: false,
+            inverse: true,
+            playInterval: 5000,
+            left: null,
+            right: 5,
+            top: 20,
+            bottom: 20,
+            width: 46,
+            height: null,
+            label: {
+                normal: {
+                    textStyle: {
+                        color: '#8d8785'
+                    }
+                },
+                emphasis: {
+                    textStyle: {
+                        color: '#000000'
+                    }
+                }
+            },
+            symbol: 'none',
+            lineStyle: {
+                color: '#555'
+            },
+            checkpointStyle: {
+                color: '#bbb',
+                borderColor: '#777',
+                borderWidth: 1
+            },
+            controlStyle: {
+                showNextBtn: false,
+                showPrevBtn: false,
+                normal: {
+                    color: '#666',
+                    borderColor: '#666'
+                },
+                emphasis: {
+                    color: '#aaa',
+                    borderColor: '#aaa'
+                }
+            },
+            data:year_list
+
+        },
+        title: {
+            text: 'Distribution of Education',
+            textStyle: {
+                fontSize: 25,
+                color: 'rgb(0,0,0)',
+            },
+            subtext: '受教育年限',
+            subtextStyle: {
+                fontSize: 12,
+                color: 'rgb(0,0,0)',
+            },
+            left: 'left',
+            top: 'top',
+
+        },
+
+        series: [{
+            type: 'map',
+            // mapType: 'china',
+            geoIndex:0,
+            data: []
+        }],
+        geo: [
+            {
+                map: 'china_provinces',//地图名
+                zlevel: 1,
+                roam: false,//设置为false,不启动roam就无所谓缩放拖曳同步了
+                zoom: 1.2,//缩放级别
+                itemStyle: {//顶层地图的样式，如地图区域颜色，边框颜色，边框大小等
+                    normal: {
+                        areaColor: 'rgba(0,0,0,0)',
+                        borderColor: 'rgb(255,255,255)',
+                        borderWidth: 1,
+                        // opacity:0.4,
+                        borderType: 'solid'
+                    },
+                },
+                label: {
+                    normal: {
+                        show: false,
+                    },
+                    emphasis: {
+                        show: false,
+                    }
+                },
+            },
+
+            {
+                map: 'china',
+                zlevel: 2,//geo显示级别，默认是0
+                roam: false,//roam与上一个geo配置相同
+                zoom:1.2,
+                itemStyle: {//底层地图样式
+                    normal: {
+                        //此处border设置你想要显示的地图外边框样式，可设置border颜色，阴影等
+                        borderColor: 'rgba(0,0,0,1)',
+                        borderWidth: 1,
+                        areaColor: 'rgba(0,0,0,0)',
+                    },
+                    emphasis: {
+                        areaColor: 'rgba(0,0,0,0)',
+                    },
+                },
+                label: {
+                    normal: {
+                        show: false,
+                    },
+                    emphasis: {
+                        show: false,
+                    }
+                },
+            },
+
+            {
+                map: 'china_provinces',//地图名
+                zlevel: 3,
+                roam: false,//设置为false,不启动roam就无所谓缩放拖曳同步了
+                zoom: 1.2,//缩放级别
+                itemStyle: {//顶层地图的样式，如地图区域颜色，边框颜色，边框大小等
+                    normal: {
+                        areaColor: 'rgba(54,252,255,0)',
+                        borderColor: 'rgba(0,255,1,0)',
+                        borderWidth: 0,
+                        // opacity:0.4,
+                    },
+                    emphasis: {
+                        areaColor: 'rgba(255,255,255,0.4)',
+                        // opacity:0.5,
+                        // borderColor: 'rgba(255,255,255,1)',
+                        borderWidth: 0,
+                        // opacity:0.4,
+                    },
+
+                },
+                label: {
+                    normal: {
+                        show: false,
+                        formatter:
+                            function(params) {
+                                var res = params.name;
+
+                                var myseries = option.options;
+                                var i=0;
+                                    for(var j=0;j<myseries[i].series[0].data.length;j++){
+                                        if(myseries[i].series[0].data[j].name==params.name){
+                                            res=myseries[i].series[0].data[j].name +' : '+myseries[i].series[0].data[j].value;
+                                        }
+                                    }
+
+                                return res;
+                            },
+                        fontSize: 10,
+                    },
+                    emphasis: {
+                        show: true,
+                        fontSize: 20,
+                        formatter:'',
+                        color:'#ff0000',
+                    }
+                },
+            },          ],
+    },
+    options: []
+}
+
+
+for (var i = 0; i < data.length; i++) {
+// function myFunction(i) {
+//                                 // var res = params.name;
+//                                 console.log(option.options);
+//                                 var myseries = option.options;
+//                                 for (var i = 0; i < myseries.length; i++) {
+//                                     for(var j=0;j<myseries[i].series[0].data.length;j++){
+//                                         // if(myseries[i].series[0].data[j].name==params.name){
+//                                             res+=myseries[i].series[0].data[j].name +' : '+myseries[i].series[0].data[j].value;
+//                                         // }
+//                                     }
+//                                 }
+//                                 return res;
+//                 }
+
+    option.options.push({
+        visualMap: [{
+            // type: 'continuous',
+            type: 'piecewise',
+            calculable: true,
+            dimension: 0,
+            left: '10%',
+            bottom: '10%',
+            // top: 'center',
+            // itemWidth: 20,
+            // itemHeight: 180,
+            hoverLink: false,
+            min: 0,
+            max: 15,
+            pieces: [
+                // {min: 15}, // 不指定 max，表示 max 为无限大（Infinity）。
+                {min: 12},
+                {min: 11, max: 12},
+                {min: 10, max: 11},
+                {min: 9, max: 10},
+                {min: 8, max: 9},
+                {min: 7, max: 8},
+                {min: 6, max: 7},
+                {min: 3, max: 6},
+                {min: 0, max: 3, label: '0 - 3'},],
+            // splitNumber:4,
+            // text: ['High', 'Low'],
+            textStyle: {
+                color: '#ddd'
+            },    // NavyBlue
+            color: [
+                '#8B0000',
+                '#FF0000',
+                '#FF6347',
+                '#FFA500',
+                '#FFD700',
+                '#32CD32',
+                '#40E0D0',
+                '#1E90FF',
+                '#000080',
+            ]
+            // color: '#ffd942',
+            // inRange: {
+            //     color: ['lightskyblue', 'yellow', 'orange', 'red']
+            // }
+        }],
+        series: [{
+            data: data[i].data
+        },],
+
+
+    })
+
+};
+chart_myChart.setOption(option);
+// chart_myChart.dispatchAction(
+//     {
+//     type: 'timelineChange',
+//         // 时间点的 index
+//     currentIndex: 1,
+//     }
+// )
+// console.log(chart_myChart.timelinechanged)
+// console.log(option.baseOption.timeline.currentIndex)
+chart_myChart.on("timelinechanged", function(params){
+    // console.log(params);
+    // option = chart_myChart.getOption();
+    // option.geo[2].label.formatter = '1';
+    // option.geo[2].label.show = false;
+    // option.geo[2].emphasis.label.formatter = '2';
+    // option.geo[2].emphasis.label.show = false;
+    // option.geo[2].zoom = 1.8;
+    // option.baseOption.geo[1].zoom = 1.5;
+    // var option = chart_myChart.getOption();
+    option.baseOption.timeline.currentIndex = params.currentIndex;
+
+    // option.baseOption.geo[2].label.emphasis.fontSize=100;
+    // option.baseOption.geo[2].label.emphasis.formatter='1111';
+    option.baseOption.geo[2].label.normal.formatter=
+                            function(params) {
+                                var res = params.name;
+
+                                var myseries = data[option.baseOption.timeline.currentIndex];
+                                     for(var i=0;i<myseries.data.length;i++){
+                                        if(myseries.data[i].name==params.name){
+                                            res=myseries.data[i].name +': '+myseries.data[i].value;
+                                        }
+                                    }
+
+                                return res;
+                            },
+    chart_myChart.setOption(option);
+    // alert(1)
+});
+    </script>
+</body>
+</html>
