@@ -2,11 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>受教育平均年限_5</title>
+    <title>基尼系数_10</title>
         <script type="text/javascript" src="js/echarts.js"></script>
         <script type="text/javascript" src="js/maps/china.js"></script>
         <script type="text/javascript" src="js/maps/china_provinces/china_provinces.js"></script>
-        <script type="text/javascript" src="js/data/受教育平均年限_5.js"></script>
+        <script type="text/javascript" src="js/data/基尼系数_10.js"></script>
 
 </head>
 <body>
@@ -90,12 +90,12 @@ var option = {
 
         },
         title: {
-            text: 'Distribution of Education (5 years)',
+            text: 'Distribution of Education (10 years)',
             textStyle: {
                 fontSize: 25,
                 color: 'rgb(0,0,0)',
             },
-            subtext: '受教育平均年限_5年',
+            subtext: '基尼系数_10年',
             subtextStyle: {
                 fontSize: 12,
                 color: 'rgb(0,0,0)',
@@ -245,17 +245,30 @@ for (var i = 0; i < data.length; i++) {
             hoverLink: false,
             min: 0,
             max: 15,
+            // pieces: [
+            //     // {min: 15}, // 不指定 max，表示 max 为无限大（Infinity）。
+            //     {min: 0.3},
+            //     {min: 0.24, max: 0.3},
+            //     {min: 0.23, max: 0.24},
+            //     {min: 0.22, max: 0.23},
+            //     {min: 0.21, max: 0.22},
+            //     {min: 0.20, max: 0.21},
+            //     {min: 0.19, max: 0.20},
+            //     {min: 0.18, max: 0.19},
+            //     {min: 0, max: 0.18, label: '0 - 0.18'},],
             pieces: [
                 // {min: 15}, // 不指定 max，表示 max 为无限大（Infinity）。
-                {min: 12},
-                {min: 11, max: 12},
-                {min: 10, max: 11},
-                {min: 9, max: 10},
-                {min: 8, max: 9},
-                {min: 7, max: 8},
-                {min: 6, max: 7},
-                {min: 3, max: 6},
-                {min: 0, max: 3, label: '0 - 3'},],
+                {min: 0.24, label: '> 0.24'},
+                {min: 0.22, max: 0.24, label: '0.22 - 0.24'},
+                {min: 0.2, max: 0.22, label: '0.20 - 0.22'},
+                {min: 0.18, max: 0.2, label: '0.18 - 0.20'},
+                {min: 0.16, max: 0.18, label: '0.16 - 0.18'},
+                {min: 0.14, max: 0.16, label: '0.14 - 0.16'},
+                {min: 0.12, max: 0.14, label: '0.12 - 0.14'},
+                {min: 0.1, max: 0.12, label: '0.10 - 0.12'},
+                {min: 0, max: 0.1, label: '0 - 0.10'},],
+
+
             // splitNumber:4,
             // text: ['High', 'Low'],
             textStyle: {
