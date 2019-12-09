@@ -2,11 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>受教育平均年限_10</title>
+    <title>基尼系数_10_diff</title>
         <script type="text/javascript" src="js/echarts.js"></script>
         <script type="text/javascript" src="js/maps/china.js"></script>
         <script type="text/javascript" src="js/maps/china_provinces/china_provinces.js"></script>
-        <script type="text/javascript" src="js/data/受教育平均年限_10.js"></script>
+        <script type="text/javascript" src="js/data/基尼系数_10_diff.js"></script>
 
 </head>
 <body>
@@ -46,7 +46,7 @@ var option = {
             　　　　pixelRatio: 2
         　　　　}
         　　},
-            right: 100,
+            right: 200,
         },
         animationDurationUpdate: 1000,
         animationEasingUpdate: 'quinticInOut',
@@ -68,7 +68,8 @@ var option = {
                 normal: {
                     textStyle: {
                         color: '#8d8785'
-                    }
+                    },
+                position:-10
                 },
                 emphasis: {
                     textStyle: {
@@ -106,7 +107,7 @@ var option = {
                 fontSize: 25,
                 color: 'rgb(0,0,0)',
             },
-            subtext: '受教育平均年限_10年',
+            subtext: '基尼系数_10年_代差',
             subtextStyle: {
                 fontSize: 12,
                 color: 'rgb(0,0,0)',
@@ -256,28 +257,46 @@ for (var i = 0; i < data.length; i++) {
             hoverLink: false,
             min: 0,
             max: 15,
+            // pieces: [
+            //     // {min: 15}, // 不指定 max，表示 max 为无限大（Infinity）。
+            //     {min: 0.3},
+            //     {min: 0.24, max: 0.3},
+            //     {min: 0.23, max: 0.24},
+            //     {min: 0.22, max: 0.23},
+            //     {min: 0.21, max: 0.22},
+            //     {min: 0.20, max: 0.21},
+            //     {min: 0.19, max: 0.20},
+            //     {min: 0.18, max: 0.19},
+            //     {min: 0, max: 0.18, label: '0 - 0.18'},],
             pieces: [
                 // {min: 15}, // 不指定 max，表示 max 为无限大（Infinity）。
-                {min: 12},
-                {min: 11, max: 12},
-                {min: 10, max: 11},
-                {min: 9, max: 10},
-                {min: 8, max: 9},
-                {min: 6, max: 8},
-                {min: 0, max: 6, label: '0 - 6'},],
+                {min: 0, label: '> 0'},
+                {min: -0.02, max: 0, label: '-0.02 ~ 0'},
+                {min: -0.04, max: -0.02, label: '-0.04 ~ -0.02'},
+                {min: -0.06, max: -0.04, label: '-0.06 ~ -0.04'},
+                {min: -0.08, max: -0.06, label: '-0.08 ~ -0.06'},
+                {min: -0.10, max: -0.08, label: '-0.10 ~ -0.08'},
+                {max: -0.10, label: '< -0.10'},],
+
+
             // splitNumber:4,
             // text: ['High', 'Low'],
             textStyle: {
                 color: '#000000'
             },    // NavyBlue
             color: [
-                '#7f2704',
+
                 '#d73027',
-                '#f46d43',
-                '#fdae61',
-                '#fee090',
-                '#ffffbf',
-                '#fff5eb'
+                '#e8f7f5',
+                '#caf0f7',
+                '#9ecae1',
+                '#19a0bd',
+                '#17659c',
+                '#2a418a',
+
+                // '#08306b',
+                // '#f7fbff',
+
             ]
             // color: '#ffd942',
             // inRange: {
